@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Director
+  - Attachment
+  - End
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Attachment
+  - Director
+  - 
+  - 
+  - Player
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Director
+    uniqueID: 1512808919
+    locked: 0
+  - name: Player
+    uniqueID: 545820395
+    locked: 0
+  - name: Attachment
+    uniqueID: 1824265041
+    locked: 0
+  - name: AttachmentNo
+    uniqueID: 2120982195
+    locked: 0
+  - name: UI
+    uniqueID: 4037580009
+    locked: 0
