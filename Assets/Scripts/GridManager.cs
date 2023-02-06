@@ -17,6 +17,7 @@ public class GridManager : MonoBehaviour
     Array2DString arrangement;
     private int width;
     private int height;
+    AttachmentTracker attTracker;
 
     [HideInInspector]
     public Dictionary<Vector3, Transform> d; // coordinate position, tile transform
@@ -64,26 +65,52 @@ public class GridManager : MonoBehaviour
                 string value = arrangement.GetCell(j, i);
                 if(value.Contains('*'))
                 {
+                    attTracker = new AttachmentTracker();
+
                     string[] mul = value.Split('*');
-                    Debug.Log(mul[0] + " " + mul[1]);
-                    for (int k = 0; k < Convert.ToInt32(mul[1]); k++)
-                        AttachmentInstantiate(attachmentsDict[mul[0]], xValue, yValue);
+                    int total = Convert.ToInt32(mul[1]);
+                    GameObject attObj = null;
+                    Attachment att = attachmentsDict[mul[0]].GetComponent<Attachment>();
+                    for (int k = 0; k < total; k++)
+                    {
+                        attObj = AttachmentInstantiate(attachmentsDict[mul[0]], xValue, yValue);
+                        attTracker.attachments.Add(attObj.GetComponent<Attachment>());
+                    }
+                    level.attachmentCountInfo[attObj.name] = total;
+
+                    attTracker.attachmentId = att.GetAttachmentId();
+                    attTracker.attachmentsCount = total;
+                    attTracker.currentPosition = new Vector3(xValue, yValue);
+
+                    int wid = level.attachmentTracker.GetLength(0), hei = level.attachmentTracker.GetLength(1);
+                    if (xValue >= 0 && yValue >= 0 && xValue < wid && yValue < hei)
+                    {
+                        level.attachmentTracker[xValue, yValue] = attTracker;
+                    }
+                    else
+                        Debug.Log("Attachment was not tracked, attachment id = " + att.GetAttachmentId());
+
                     continue;
                 }
                 if (value == null) return;
-                if(value == "1")
+
+                attTracker = new AttachmentTracker();
+                attTracker.attachmentsCount = 0;
+                level.attachmentTracker[xValue, yValue] = attTracker;
+
+                if (value == "1")
                 {
                     TileInstantiate(tile, xValue, yValue);
                 }
-                else if(value == "2R" || value == "3R")
+                else if(value == "End")
                 {
-                    AttachmentInstantiate(attachmentsDict[value], xValue, yValue);
+                    TileInstantiate(level.end.GetComponent<Tile>(), xValue, yValue);
                 }
                 else if(value == "Hero")
                 {
-                    AttachmentInstantiate(attachmentsDict[value], xValue, yValue);
+                    TileInstantiate(level.hero.GetComponent<Tile>() , xValue, yValue);
                 }
-                else if(value == "End")
+                else if(value == "2R" || value == "3R")
                 {
                     AttachmentInstantiate(attachmentsDict[value], xValue, yValue);
                 }
@@ -110,7 +137,7 @@ public class GridManager : MonoBehaviour
         PostGridCreate();
     }
 
-    void AttachmentInstantiate(GameObject attachement, int i, int j)
+    GameObject AttachmentInstantiate(GameObject attachement, int i, int j)
     {
         float positionX = (width % 2 == 1) ? i - (width / 2) : (i - (width / 2) + 0.5f);
         float positionY = (height % 2 == 1) ? j - (height / 2) : (j - (height / 2) + 0.5f);
@@ -120,6 +147,8 @@ public class GridManager : MonoBehaviour
         attachments.Add((GameObject)attachmentObject);
 
         d[new Vector3(i, j)] = attachmentObject.transform;
+
+        return attachmentObject;
     }
     void TileInstantiate(Tile tile, int i, int j)
     {
@@ -168,6 +197,10 @@ public class GridManager : MonoBehaviour
     void PostGridCreate() // executes after grid creates
     {
         level.instantiatedAttachments = attachments;
+        foreach(GameObject go in attachments)
+        {
+            go.GetComponent<Attachment>().RefreshAttachmentCount();
+        }
     }
 
     public Vector3 ReorderedPosition(Vector3 pos)
@@ -182,6 +215,20 @@ public class GridManager : MonoBehaviour
         float x, y;
         ConvertWorldPositionToTileCoordinate(pos, out x, out y);
         return new Vector3(x, y);
+    }
+
+    public bool IsPositionInsideTileGrid(Vector3 pos)
+    {
+        float x, y;
+        ConvertWorldPositionToTileCoordinate(pos, out x, out y);
+        return x >= 0 && y >= 1 && x < width && y < height - 2;
+    }
+
+    public bool IsPositionInsideAttachmentGrid(Vector3 pos)
+    {
+        float x, y;
+        ConvertWorldPositionToTileCoordinate(pos, out x, out y);
+        return x >= 0 && x < width && y == height - 1;
     }
 
     public int GetGridWidth()

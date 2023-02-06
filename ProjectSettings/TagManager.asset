@@ -44,6 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: OtherTiles
+    uniqueID: 3994713089
+    locked: 0
   - name: Director
     uniqueID: 1512808919
     locked: 0
@@ -53,7 +56,7 @@ TagManager:
   - name: Attachment
     uniqueID: 1824265041
     locked: 0
-  - name: AttachmentNo
+  - name: ActiveAttachment
     uniqueID: 2120982195
     locked: 0
   - name: UI

@@ -58,8 +58,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -257387287
-  m_SortingOrder: 0
+  m_SortingLayerID: 1824265041
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &4619527948183557717
 MonoBehaviour:
@@ -265,7 +265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4286681278865442294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1876285, y: 0.023977991, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -312,7 +312,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1824265041
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.03459108, b: 0.8104359, a: 1}
@@ -341,6 +341,7 @@ MonoBehaviour:
   renderer: {fileID: 714037185415797239}
   baseColor: {r: 1, g: 0.03459108, b: 0.8104359, a: 1}
   isDraggable: 1
+  countObject: {fileID: 7499789920595547612}
 --- !u!61 &4771083137002921897
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -472,9 +473,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2120982195
+  m_SortingLayerID: 1824265041
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

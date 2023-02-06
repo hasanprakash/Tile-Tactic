@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 884160587754086550}
   - component: {fileID: 5094039412009160259}
   - component: {fileID: -2205746755707746092}
-  - component: {fileID: 4014921275629594669}
+  - component: {fileID: 2867187496980774076}
   m_Layer: 0
   m_Name: End
   m_TagString: End
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2705475138209574267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6675614, y: -0.11053571, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -300254207
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
---- !u!114 &4014921275629594669
+--- !u!114 &2867187496980774076
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,10 +121,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2705475138209574267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d27a3c7e6fa379d499d04865d5298064, type: 3}
+  m_Script: {fileID: 11500000, guid: 37b66dfeaff3d1949848f74f6bd96514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachmentId: End
+  baseColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+  offsetColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
   renderer: {fileID: 5094039412009160259}
-  baseColor: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
-  isDraggable: 0
+  highlight: {fileID: 0}

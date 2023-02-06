@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8529159049549361906}
   - component: {fileID: 1913894302454858644}
   - component: {fileID: -1916857841824517046}
-  - component: {fileID: 3622925361749291074}
   - component: {fileID: 2221166439750845902}
   - component: {fileID: 8663744724546947078}
+  - component: {fileID: 2241844955931045330}
   m_Layer: 10
   m_Name: Hero
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 545820395
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.98158026, b: 1, a: 1}
@@ -114,22 +114,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3622925361749291074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8432795276923450778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d27a3c7e6fa379d499d04865d5298064, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachmentId: Hero
-  renderer: {fileID: 1913894302454858644}
-  baseColor: {r: 0, g: 0.98039216, b: 1, a: 1}
-  isDraggable: 0
 --- !u!114 &2221166439750845902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +147,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &2241844955931045330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8432795276923450778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b66dfeaff3d1949848f74f6bd96514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseColor: {r: 0, g: 0.98039216, b: 1, a: 1}
+  offsetColor: {r: 0, g: 0.98039216, b: 1, a: 1}
+  renderer: {fileID: 1913894302454858644}
