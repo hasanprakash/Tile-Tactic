@@ -19,7 +19,9 @@ MonoBehaviour:
   end: {fileID: 2705475138209574267, guid: 682ec02e76755ec46afe655c26bd9c1d, type: 3}
   attachments:
   - {fileID: 4286681278865442294, guid: bdf882966ed0cd24095b61e783c3398c, type: 3}
-  - {fileID: 991180294950601076, guid: ce1ef61af45f27141afaf21adf1a914a, type: 3}
+  - {fileID: 4286681278865442294, guid: 03154189df486154ea59329de25cedc6, type: 3}
+  - {fileID: 4286681278865442294, guid: 43e9ecf4ae9311046a554fe2594cd5b0, type: 3}
+  - {fileID: 4286681278865442294, guid: 39afef99611bfc440afbd711c1f96948, type: 3}
   directors:
   - {fileID: 7979412124952571483, guid: fdd6170adbaa8df42939910d69610d08, type: 3}
   - {fileID: 8194690427860822124, guid: b1d809cafa4c667408b04b92687471b9, type: 3}
@@ -31,7 +33,7 @@ MonoBehaviour:
     cells:
     - row:
       - 2R*2
-      - 3R*1
+      - 0
       - 0
       - 0
     - row:
@@ -77,4 +79,4 @@ MonoBehaviour:
   instantiatedAttachments:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  instantiatedHero: {fileID: 0}

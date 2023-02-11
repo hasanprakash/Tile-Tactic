@@ -48,7 +48,6 @@ public class Attachment : MonoBehaviour
         renderer.sortingLayerName = "ActiveAttachment";
         countObject.gameObject.SetActive(false);
 
-        Debug.Log("Checking if currentCoordinate inside grid " + currentCoordinate);
         if (gridManager.IsCoordinateInsideTileGrid(currentCoordinate))
         {
             Debug.Log(currentCoordinate + " is inside the grid");

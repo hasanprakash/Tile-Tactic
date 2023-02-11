@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 3487780783121576032}
   - component: {fileID: 679765655569190066}
   m_Layer: 6
-  m_Name: 3Right
+  m_Name: 3Left
   m_TagString: Attachment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,7 +314,7 @@ SpriteRenderer:
   m_SortingLayerID: 1824265041
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 8adaf159582590e47a1b77f4721c735b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5bc68d7bfa67bc4cba35f579678388d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27a3c7e6fa379d499d04865d5298064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachmentId: 3R
+  attachmentId: 3L
   renderer: {fileID: 714037185415797239}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   isDraggable: 1
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade72dcfb0c857f40a7d84d78277d230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachmentId: 3R
+  attachmentId: 3L
 --- !u!50 &679765655569190066
 Rigidbody2D:
   serializedVersion: 4
