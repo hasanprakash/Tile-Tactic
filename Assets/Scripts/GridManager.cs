@@ -105,10 +105,19 @@ public class GridManager : MonoBehaviour
                 else if(value == "End")
                 {
                     TileInstantiate(level.end.GetComponent<Tile>(), xValue, yValue);
+
+                    attTracker = new AttachmentTracker();
+                    attTracker.occupied = true;
+                    level.attachmentTracker[xValue, yValue] = attTracker;
                 }
                 else if(value == "Hero")
                 {
-                    TileInstantiate(level.hero.GetComponent<Tile>() , xValue, yValue);
+                    GameObject instantiatedHero = TileInstantiate(level.hero.GetComponent<Tile>() , xValue, yValue);
+                    level.instantiatedHero = instantiatedHero;
+
+                    attTracker = new AttachmentTracker();
+                    attTracker.occupied = true;
+                    level.attachmentTracker[xValue, yValue] = attTracker;
                 }
                 else if(value == "2R" || value == "3R")
                 {
@@ -117,6 +126,10 @@ public class GridManager : MonoBehaviour
                 else if(value == "LD" || value == "RD" || value == "UD" || value == "DD")
                 {
                     DirectorInstantiate(directorsDict[value], xValue, yValue);
+
+                    attTracker = new AttachmentTracker();
+                    attTracker.occupied = true;
+                    level.attachmentTracker[xValue, yValue] = attTracker;
                 }
             }
         }
@@ -150,7 +163,7 @@ public class GridManager : MonoBehaviour
 
         return attachmentObject;
     }
-    void TileInstantiate(Tile tile, int i, int j)
+    GameObject TileInstantiate(Tile tile, int i, int j)
     {
         float positionX, positionY;
         ConvertTileCoordinateToWorldPosition(new Vector3(i, j), out positionX, out positionY);
@@ -162,6 +175,8 @@ public class GridManager : MonoBehaviour
         tileObject.Init(isOffset);
 
         d[new Vector3(i, j)] = tileObject.transform;
+
+        return tileObject.gameObject;
     }
     void DirectorInstantiate(GameObject director, int i, int j)
     {
@@ -187,6 +202,12 @@ public class GridManager : MonoBehaviour
         y = (height % 2 == 0) ? (pos.y + height / 2) - 0.5f : (pos.y + height / 2);
         x = Mathf.Round(x);
         y = Mathf.Round(y);
+    }
+    public Vector3 ConvertWorldPositionToTileCoordinate(Vector3 pos)
+    {
+        float x, y;
+        ConvertWorldPositionToTileCoordinate(pos, out x, out y);
+        return new Vector3(x, y);
     }
     public void ConvertTileCoordinateToWorldPosition(Vector3 pos, out float x, out float y)
     {
@@ -223,11 +244,21 @@ public class GridManager : MonoBehaviour
         ConvertWorldPositionToTileCoordinate(pos, out x, out y);
         return x >= 0 && y >= 1 && x < width && y < height - 2;
     }
+    public bool IsCoordinateInsideTileGrid(Vector3 coordinate)
+    {
+        float x = coordinate.x, y = coordinate.y;
+        return x >= 0 && y >= 1 && x < width && y < height - 2;
+    }
 
     public bool IsPositionInsideAttachmentGrid(Vector3 pos)
     {
         float x, y;
         ConvertWorldPositionToTileCoordinate(pos, out x, out y);
+        return x >= 0 && x < width && y == height - 1;
+    }
+    public bool IsCoordinateInsideAttachmentGrid(Vector3 pos)
+    {
+        float x = pos.x, y = pos.y;
         return x >= 0 && x < width && y == height - 1;
     }
 

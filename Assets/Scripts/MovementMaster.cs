@@ -17,18 +17,22 @@ public class MovementMaster : MonoBehaviour
     public bool isHeroMovement { set; private get; }
     public bool isTileMovement { set; private get; }
     private UIManager uiManager;
+
+    private void Awake()
+    {
+        levelInfo = FindObjectOfType<LevelInfo>();
+        level = levelInfo.level;
+    }
     void Start()
     {
         uiManager = GetComponent<UIManager>();
-        levelInfo = FindObjectOfType<LevelInfo>();
-        level = levelInfo.level;
-        attachments = level.instantiatedAttachments;
         isTileMovement = true;
         isHeroMovement = false;
     }
     public void StartGame()
     {
         uiManager.ClosePlayAgainPanel();
+        attachments = level.instantiatedAttachments;
         StopGameRoutine(gameObject);
         isGameStarted = true;
         Debug.Log("Starting Game");
@@ -40,6 +44,7 @@ public class MovementMaster : MonoBehaviour
             if(attachment) attachment.RestoreToStartPosition();
             if (tileMovement) tileMovement.MovementConfiguration();
         }
+        level.instantiatedHero.GetComponent<HeroMovement>().EnableCollider();
         StartGameRoutine(true, true);
     }
     public void GameFailed()
@@ -48,6 +53,8 @@ public class MovementMaster : MonoBehaviour
         isGameStarted = false;
         isHeroMovement = false;
         isTileMovement = false;
+
+        level.instantiatedHero.GetComponent<HeroMovement>().DisableCollider();
         StopGameRoutine(gameObject);
     }
     public void GameWin()
@@ -56,20 +63,22 @@ public class MovementMaster : MonoBehaviour
         isGameStarted = false;
         isHeroMovement = false;
         isTileMovement = false;
+
+        level.instantiatedHero.GetComponent<HeroMovement>().DisableCollider();
         StopGameRoutine(gameObject);
     }
     void StartMovements()
     {
+        heroMovement = level.instantiatedHero.GetComponent<HeroMovement>();
         foreach(GameObject attachment in attachments)
         {
-            attachment.gameObject.TryGetComponent<HeroMovement>(out heroMovement);
             attachment.gameObject.TryGetComponent<TileMovement>(out tileMovement);
 
             if (isTileMovement && tileMovement != null)
                 tileMovement.AttachmentMove();
-            if(isHeroMovement && heroMovement != null)
-                heroMovement.HeroMove();
         }
+        if (isHeroMovement && heroMovement != null)
+            heroMovement.HeroMove();
     }
 
     public void StartGameRoutine(bool HeroMovementStatus, bool TileMovementStatus)

@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Attachment : MonoBehaviour
 {
@@ -46,6 +47,13 @@ public class Attachment : MonoBehaviour
         isDrag = true;
         renderer.sortingLayerName = "ActiveAttachment";
         countObject.gameObject.SetActive(false);
+
+        Debug.Log("Checking if currentCoordinate inside grid " + currentCoordinate);
+        if (gridManager.IsCoordinateInsideTileGrid(currentCoordinate))
+        {
+            Debug.Log(currentCoordinate + " is inside the grid");
+            SetOccupiedStatus(currentCoordinate, false);
+        }
     }
     private void OnMouseDrag()
     {
@@ -60,22 +68,17 @@ public class Attachment : MonoBehaviour
     {
         if (!isDraggable) return;
 
-        bool status = ValidateAttachmentDestinationPosition(transform.position);
+        bool status = ValidateAttachmentDestinationPosition(gridManager.ConvertWorldPositionToTileCoordinate(transform.position));
         if(!status)
         {
             movementMaster.StopGameRoutine(gameObject);
+            SetOccupiedStatus(currentCoordinate, false);
             transform.position = tilePosition;
             isDrag = false;
             renderer.sortingLayerName = "Attachment";
             float tileCoordinateX, tileCoordinateY;
             gridManager.ConvertWorldPositionToTileCoordinate(tilePosition, out tileCoordinateX, out tileCoordinateY);
             RefreshAllAttachmentCount(currentCoordinate, new Vector3(tileCoordinateX, tileCoordinateY));
-
-            /*float currentPositionX, currentPositionY;
-            gridManager.ConvertTileCoordinateToWorldPosition(currentCoordinate, out currentPositionX, out currentPositionY);
-            if(gridManager.IsPositionInsideTileGrid(new Vector3(currentPositionX, currentPositionY))) {
-                SetOccupiedStatus(new Vector3(currentPositionX, currentPositionY), false);
-            }*/
 
             currentCoordinate = new Vector3(tileCoordinateX, tileCoordinateY);
             ValidateCountTextVisibility();
@@ -95,21 +98,21 @@ public class Attachment : MonoBehaviour
         previousCoordinate = currentCoordinate;
         currentCoordinate = new Vector3(x, y);
         transform.position = new Vector3(worldX, worldY);
-        //SetOccupiedStatus(currentCoordinate, true);
-        //SetOccupiedStatus(previousCoordinate, false);
+        SetOccupiedStatus(previousCoordinate, false);
+        SetOccupiedStatus(currentCoordinate, true);
 
         RefreshAllAttachmentCount(previousCoordinate, currentCoordinate);
 
-        if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight - 2)
+        startPosition = transform.position;
+        /*if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight - 2)
         {
-            startPosition = transform.position;
             tileMovement.MovementConfiguration();
             movementMaster.StartGameRoutine(false, true);
         }
         else
         {
             tileMovement.ClearConfiguration();
-        }
+        }*/
 
         renderer.sortingLayerName = "Attachment";
         ValidateCountTextVisibility();
@@ -181,14 +184,12 @@ public class Attachment : MonoBehaviour
             countObject.gameObject.SetActive(true);
     }
 
-    bool ValidateAttachmentDestinationPosition(Vector3 position)
+    bool ValidateAttachmentDestinationPosition(Vector3 coordinate)
     {
-        if (!gridManager.IsPositionInsideAttachmentGrid(position) &&
-            !gridManager.IsPositionInsideTileGrid(position)) return false;
+        if (!gridManager.IsCoordinateInsideAttachmentGrid(coordinate) &&
+            !gridManager.IsCoordinateInsideTileGrid(coordinate)) return false;
         Level level = FindObjectOfType<LevelInfo>().level;
-        float fx, fy;
-        gridManager.ConvertWorldPositionToTileCoordinate(position, out fx, out fy);
-        int x = (int)fx, y = (int)fy;
+        int x = (int)coordinate.x, y = (int)coordinate.y;
         int noOfSteps = attachmentId[0] - 48;
         char direction = attachmentId[1];
         var attTrackerData = level.attachmentTracker;
@@ -217,6 +218,13 @@ public class Attachment : MonoBehaviour
 
     void SetOccupiedStatus(Vector3 coordinate, bool status)
     {
+        if (!gridManager.IsCoordinateInsideTileGrid(coordinate))
+        {
+            Debug.Log(coordinate + " is not inside the grid -- SetOccupiedStatus()");
+            return;
+        }
+        Debug.Log(coordinate + " " + status);
+
         Level level = FindObjectOfType<LevelInfo>().level;
         int x = (int)coordinate.x, y = (int)coordinate.y;
 
@@ -241,6 +249,13 @@ public class Attachment : MonoBehaviour
             }
         }
 
+    }
+
+    Vector3 ConvertCoordinateToPosition(Vector3 coordinate)
+    {
+        float positionX, positionY;
+        gridManager.ConvertTileCoordinateToWorldPosition(coordinate, out positionX, out positionY);
+        return new Vector3(positionX, positionY);
     }
 
     public string GetAttachmentId()

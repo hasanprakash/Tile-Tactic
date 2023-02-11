@@ -15,6 +15,7 @@ public class Level : ScriptableObject
     [SerializeField] public List<GameObject> directors;
     [SerializeField] public Array2DString arrangement;
     [HideInInspector] public List<GameObject> instantiatedAttachments;
+    [HideInInspector] public GameObject instantiatedHero;
     [HideInInspector] public Dictionary<string, int> attachmentCountInfo = new Dictionary<string, int>();
     [HideInInspector] public AttachmentTracker[,] attachmentTracker = new AttachmentTracker[4, 9];
 

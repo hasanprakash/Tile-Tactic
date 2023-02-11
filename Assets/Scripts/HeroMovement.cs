@@ -20,16 +20,22 @@ public class HeroMovement : MonoBehaviour
     Vector3 previousCoordinate;
     GridManager gridManager;
     private MovementMaster movementMaster;
+
+    private void Awake()
+    {
+        gridManager = FindObjectOfType<GridManager>();
+        presentCoordinate = gridManager.GetTileCoordinate(transform.position);
+    }
     void Start()
     {
         speed = distance / timeToMove;
         adjustSpeed = distance / adjustTimeToMove;
         isMoving = false;
         isPositionAdjusting = false;
-        gridManager = FindObjectOfType<GridManager>();
         movementMaster = FindObjectOfType<MovementMaster>();
-        presentCoordinate = gridManager.GetTileCoordinate(transform.position);
         previousCoordinate = Vector3.zero;
+
+        DisableCollider();
     }
 
     public void HeroMove()
@@ -114,8 +120,13 @@ public class HeroMovement : MonoBehaviour
 
     void CheckGameOverStatus()
     {
+        if(!gridManager)
+        {
+            Debug.Log("Grid Manager is null -- CheckGameOverStatus()");
+        }
+
         presentCoordinate = gridManager.GetTileCoordinate(transform.position);
-        if(Equals(previousCoordinate, presentCoordinate))
+        if(Equals(previousCoordinate, presentCoordinate) || !gridManager.IsCoordinateInsideTileGrid(presentCoordinate))
         {
             StopMovement();
         }
@@ -125,5 +136,20 @@ public class HeroMovement : MonoBehaviour
     public void StopMovement()
     {
         movementMaster.GameFailed();
+    }
+
+    public void DisableCollider()
+    {
+        if (gameObject != null)
+        {
+            gameObject.GetComponent<Collider2D>().enabled = false;
+        }
+    }
+    public void EnableCollider()
+    {
+        if (gameObject != null)
+        {
+            gameObject.GetComponent<Collider2D>().enabled = true;
+        }
     }
 }
