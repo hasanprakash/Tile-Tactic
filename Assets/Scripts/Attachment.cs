@@ -10,6 +10,7 @@ public class Attachment : MonoBehaviour
     [SerializeField] private Color baseColor;
     [SerializeField] public bool isDraggable;
     [SerializeField] private GameObject countObject;
+    [SerializeField] private AudioManager audioManager;
     TMP_Text countText;
     private bool isDrag = false;
     GridManager gridManager;
@@ -24,6 +25,7 @@ public class Attachment : MonoBehaviour
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
+        audioManager = AudioManager.instance;
     }
 
     private void Start()
@@ -81,6 +83,7 @@ public class Attachment : MonoBehaviour
 
             currentCoordinate = new Vector3(tileCoordinateX, tileCoordinateY);
             ValidateCountTextVisibility();
+            audioManager.Play("TileAttachment");
             return;
         }
 
@@ -97,6 +100,9 @@ public class Attachment : MonoBehaviour
         previousCoordinate = currentCoordinate;
         currentCoordinate = new Vector3(x, y);
         transform.position = new Vector3(worldX, worldY);
+
+        audioManager.Play("TileAttachment");
+
         SetOccupiedStatus(previousCoordinate, false);
         SetOccupiedStatus(currentCoordinate, true);
 

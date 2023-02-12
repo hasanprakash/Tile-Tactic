@@ -44,8 +44,8 @@ MonoBehaviour:
     - row:
       - 1
       - 1
+      - 1
       - End
-      - 1
     - row:
       - 1
       - 1
@@ -54,13 +54,13 @@ MonoBehaviour:
     - row:
       - 1
       - 1
-      - DD
-      - DD
+      - 1
+      - 1
     - row:
       - 1
       - 1
-      - LD
-      - LD
+      - 1
+      - 1
     - row:
       - 1
       - 1

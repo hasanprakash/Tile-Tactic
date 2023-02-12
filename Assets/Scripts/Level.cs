@@ -6,6 +6,7 @@ using Array2DEditor;
 [CreateAssetMenu(fileName = "New Level", menuName = "Create Level")]
 public class Level : ScriptableObject
 {
+    [SerializeField] public int levelNumber;
     [SerializeField] public int gridWidth;
     [SerializeField] public int gridHeight;
     [SerializeField] public Tile tile;

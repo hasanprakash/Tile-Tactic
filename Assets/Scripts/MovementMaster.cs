@@ -59,10 +59,13 @@ public class MovementMaster : MonoBehaviour
     }
     public void GameWin()
     {
-        uiManager.ShowGameWinPanel();
         isGameStarted = false;
         isHeroMovement = false;
         isTileMovement = false;
+
+        SaveSystem.UnlockLevel(level.levelNumber + 1);
+        
+        uiManager.ShowGameWinPanel();
 
         level.instantiatedHero.GetComponent<HeroMovement>().DisableCollider();
         StopGameRoutine(gameObject);

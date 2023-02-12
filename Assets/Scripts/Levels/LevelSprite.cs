@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 
 public class LevelSprite : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private Level level;
-    private LevelInfo levelInfo;
+    private Level level;
+    //private LevelInfo levelInfo;
     private static bool spawned = false;
     private GameManager gameManager;
     private void Start()
     {
-        levelInfo = FindObjectOfType<LevelInfo>();
+        //levelInfo = FindObjectOfType<LevelInfo>();
         gameManager = FindObjectOfType<GameManager>();
     }
 

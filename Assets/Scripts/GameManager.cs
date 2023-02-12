@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    AudioManager audioManager;
     public static GameManager instance;
 
     private void Awake()
@@ -18,9 +19,16 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    private void Start()
+    {
+        audioManager = AudioManager.instance;
+    }
 
+    // MENU SCENE
     public void ToLevelSelection()
     {
+        if (audioManager == null) audioManager = AudioManager.instance;
+        audioManager.Play("ButtonClick");
         SceneManager.LoadScene("LevelScene");
     }
     public void ToInstuction()
@@ -29,16 +37,22 @@ public class GameManager : MonoBehaviour
     }
     public void AppExit()
     {
+        if (audioManager == null) audioManager = AudioManager.instance;
+        audioManager.Play("ButtonClick");
         Application.Quit();
     }
     
     // LEVEL SCENE
     public void OpenLevel()
     {
+        if (audioManager == null) audioManager = AudioManager.instance;
+        audioManager.Play("ButtonClick");
         SceneManager.LoadScene("GameScene");
     }
     public void BackToMainMenu()
     {
+        if (audioManager == null) audioManager = AudioManager.instance;
+        audioManager.Play("ButtonClick");
         SceneManager.LoadScene("MenuScene");
     }
 
@@ -49,6 +63,8 @@ public class GameManager : MonoBehaviour
     }
     public void ExitToLevelScene()
     {
+        if (audioManager == null) audioManager = AudioManager.instance;
+        audioManager.Play("ButtonClick");
         SceneManager.LoadScene("LevelScene");
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelInfo : MonoBehaviour
 {
-    [SerializeField] public Level level;
+    [HideInInspector] public Level level;
     public static LevelInfo levelInfoInstance;
     private void Awake()
     {
