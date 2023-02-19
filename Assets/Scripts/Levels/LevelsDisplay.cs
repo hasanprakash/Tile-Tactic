@@ -11,20 +11,19 @@ public class LevelsDisplay : MonoBehaviour
     [SerializeField] Image lockedLevelPrefab;
     [SerializeField] List<Level> levels;
     [SerializeField] GameManager gameManager;
-    bool[] levelsStatus;
+    List<bool> levelsStatus;
 
     private void Awake()
     {
         PlayerLevelData playerLevelData = SaveSystem.LoadLevel(levels.Count);
         levelsStatus = playerLevelData.levelsStatus;
-        if(levelsStatus.Length != levels.Count) { Debug.Log("Got wrong data while retrieving level information"); }
     }
 
     private void Start()
     {
         for(int i=0;i<levels.Count;i++)
         {
-            if (levelsStatus[i])
+            if (i<levelsStatus.Count && levelsStatus[i])
             {
                 LevelSprite levelSpriteObject = Instantiate(levelSpritePrefab, parent);
                 levelSpriteObject.name = $"Level {i + 1}";

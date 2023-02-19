@@ -191,6 +191,7 @@ public class Attachment : MonoBehaviour
 
     bool ValidateAttachmentDestinationPosition(Vector3 coordinate)
     {
+        if (gridManager.IsCoordinateInsideAttachmentGrid(coordinate)) return true;
         if (!gridManager.IsCoordinateInsideAttachmentGrid(coordinate) &&
             !gridManager.IsCoordinateInsideTileGrid(coordinate)) return false;
         Level level = FindObjectOfType<LevelInfo>().level;

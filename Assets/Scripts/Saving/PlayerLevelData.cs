@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerLevelData
 {
-    public bool[] levelsStatus;
+    public List<bool> levelsStatus;
 
-    public PlayerLevelData(bool[] arr)
+    public PlayerLevelData(List<bool> arr)
     {
         levelsStatus = arr;
     }

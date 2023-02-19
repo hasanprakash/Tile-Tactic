@@ -17,6 +17,7 @@ public class MovementMaster : MonoBehaviour
     public bool isHeroMovement { set; private get; }
     public bool isTileMovement { set; private get; }
     private UIManager uiManager;
+    GridManager gridManager;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class MovementMaster : MonoBehaviour
     void Start()
     {
         uiManager = GetComponent<UIManager>();
+        gridManager = FindObjectOfType<GridManager>();
         isTileMovement = true;
         isHeroMovement = false;
     }
@@ -41,7 +43,11 @@ public class MovementMaster : MonoBehaviour
             Attachment attachment;
             att.gameObject.TryGetComponent<Attachment>(out attachment);
             att.gameObject.TryGetComponent<TileMovement>(out tileMovement);
-            if(attachment) attachment.RestoreToStartPosition();
+            if(attachment)
+            {
+                attachment.RestoreToStartPosition();
+                attachment.isDraggable = false;
+            }
             if (tileMovement) tileMovement.MovementConfiguration();
         }
         level.instantiatedHero.GetComponent<HeroMovement>().EnableCollider();
@@ -77,6 +83,7 @@ public class MovementMaster : MonoBehaviour
         {
             attachment.gameObject.TryGetComponent<TileMovement>(out tileMovement);
 
+            if (gridManager.IsPositionInsideAttachmentGrid(attachment.transform.position)) continue;
             if (isTileMovement && tileMovement != null)
                 tileMovement.AttachmentMove();
         }

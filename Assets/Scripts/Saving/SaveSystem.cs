@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
@@ -13,10 +14,20 @@ public static class SaveSystem
             FileStream openStream = new FileStream(path, FileMode.Open);
 
             PlayerLevelData data = formatter.Deserialize(openStream) as PlayerLevelData;
-            bool[] levelsStatus = data.levelsStatus;
-            if (levelNumber > levelsStatus.Length) return;
-
-            levelsStatus[levelNumber-1] = true;
+            List<bool> levelsStatus = data.levelsStatus;
+            if (levelNumber > levelsStatus.Count + 1)
+            {
+                Debug.LogWarning("Saving not successful");
+                return;
+            }
+            else if (levelNumber == levelsStatus.Count + 1)
+            {
+                levelsStatus.Add(true);
+            }
+            else
+            {
+                levelsStatus[levelNumber - 1] = true;
+            }
             data.levelsStatus = levelsStatus;
             openStream.Close();
 
@@ -49,7 +60,7 @@ public static class SaveSystem
             Debug.Log("Creating new Level Data");
 
             PlayerLevelData data = new PlayerLevelData();
-            bool[] result = new bool[levelCount];
+            List<bool> result = new List<bool>(new bool[levelCount]);
             result[0] = true;
             data.levelsStatus = result;
             SaveLevelData(data);
