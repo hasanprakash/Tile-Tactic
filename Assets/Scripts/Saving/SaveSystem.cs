@@ -51,7 +51,17 @@ public static class SaveSystem
             FileStream stream = new FileStream(path, FileMode.Open);
 
             PlayerLevelData data = formatter.Deserialize(stream) as PlayerLevelData;
+
             stream.Close();
+
+            while (data.levelsStatus.Count < levelCount)
+            {
+                data.levelsStatus.Add(false);
+            }
+            FileStream openStream = new FileStream(path, FileMode.Create);
+            formatter.Serialize(openStream, data);
+
+            openStream.Close();
 
             return data;
         }

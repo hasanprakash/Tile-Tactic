@@ -119,7 +119,15 @@ public class GridManager : MonoBehaviour
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
-                else if(value == "2R" || value == "3R")
+                else if(value == "Blocker")
+                {
+                    TileInstantiate(level.blocker.GetComponent<Tile>(), xValue, yValue);
+
+                    attTracker = new AttachmentTracker();
+                    attTracker.occupied = true;
+                    level.attachmentTracker[xValue, yValue] = attTracker;
+                }
+                else if(value == "2R" || value == "3R" || value == "2L" || value == "3L")
                 {
                     AttachmentInstantiate(attachmentsDict[value], xValue, yValue);
                 }
@@ -254,12 +262,12 @@ public class GridManager : MonoBehaviour
     {
         float x, y;
         ConvertWorldPositionToTileCoordinate(pos, out x, out y);
-        return x >= 0 && x < width && y == height - 1;
+        return x >= 0 && x < width && y == height - 2;
     }
     public bool IsCoordinateInsideAttachmentGrid(Vector3 pos)
     {
         float x = pos.x, y = pos.y;
-        return x >= 0 && x < width && y == height - 1;
+        return x >= 0 && x < width && y == height - 2;
     }
 
     public int GetGridWidth()

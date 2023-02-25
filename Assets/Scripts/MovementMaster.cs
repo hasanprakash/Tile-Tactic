@@ -13,7 +13,8 @@ public class MovementMaster : MonoBehaviour
     HeroMovement heroMovement;
     TileMovement tileMovement;
     private bool isGameStarted = false;
-    private float timeToMove = 0.5f;
+    private int turnNum = 0; // 0 -> tile, 1 -> attachment; // here hero moves first
+    private float timeToMove = 0.25f;
     public bool isHeroMovement { set; private get; }
     public bool isTileMovement { set; private get; }
     private UIManager uiManager;
@@ -78,22 +79,31 @@ public class MovementMaster : MonoBehaviour
     }
     void StartMovements()
     {
-        heroMovement = level.instantiatedHero.GetComponent<HeroMovement>();
-        foreach(GameObject attachment in attachments)
+        //heroMovement = level.instantiatedHero.GetComponent<HeroMovement>();
+        if (turnNum == 1)
         {
-            attachment.gameObject.TryGetComponent<TileMovement>(out tileMovement);
+            foreach (GameObject attachment in attachments)
+            {
+                attachment.gameObject.TryGetComponent<TileMovement>(out tileMovement);
 
-            if (gridManager.IsPositionInsideAttachmentGrid(attachment.transform.position)) continue;
-            if (isTileMovement && tileMovement != null)
-                tileMovement.AttachmentMove();
+                if (gridManager.IsPositionInsideAttachmentGrid(attachment.transform.position)) continue;
+                if (isTileMovement && tileMovement != null)
+                    tileMovement.AttachmentMove();
+            }
+            turnNum = 0;
         }
-        if (isHeroMovement && heroMovement != null)
-            heroMovement.HeroMove();
+        else if (turnNum == 0)
+        {
+            if (isHeroMovement && heroMovement != null)
+                heroMovement.HeroMove();
+            turnNum = 1;
+        }
     }
 
     public void StartGameRoutine(bool HeroMovementStatus, bool TileMovementStatus)
     {
         StopGameRoutine(gameObject);
+        heroMovement= level.instantiatedHero.GetComponent<HeroMovement>();
         isHeroMovement = HeroMovementStatus;
         isTileMovement = TileMovementStatus;
         InvokeRepeating("StartMovements", timeToMove, timeToMove + 0.3f);

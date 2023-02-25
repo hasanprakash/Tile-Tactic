@@ -12,6 +12,7 @@ public class Level : ScriptableObject
     [SerializeField] public Tile tile;
     [SerializeField] public GameObject hero;
     [SerializeField] public GameObject end;
+    [SerializeField] public GameObject blocker;
     [SerializeField] public List<GameObject> attachments;
     [SerializeField] public List<GameObject> directors;
     [SerializeField] public Array2DString arrangement;

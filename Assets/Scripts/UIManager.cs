@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] Image playAgainPanel;
     [SerializeField] Image gameWinPanel;
+    [SerializeField] TMP_Text levelNumber;
     LevelInfo levelInfo;
 
     private void Awake()
@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         levelInfo = FindObjectOfType<LevelInfo>();
+        levelNumber.text = "LEVEL " + levelInfo.level.levelNumber.ToString();
     }
 
     public void ShowPlayAgainPanel()

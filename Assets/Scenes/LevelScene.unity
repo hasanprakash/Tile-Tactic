@@ -594,6 +594,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 676fb14812b36ae4bb24a9d57c139d3d, type: 2}
   - {fileID: 11400000, guid: 26ff4809cb1e5ea46806bbe30d39a252, type: 2}
   - {fileID: 11400000, guid: 25844f7373c33524a9b116c9c7092ec1, type: 2}
+  - {fileID: 11400000, guid: ee4754e0efe37134aa6142f3390c578e, type: 2}
+  - {fileID: 11400000, guid: e74e983305ac6c74faa9c9dfa1e8605c, type: 2}
   gameManager: {fileID: 1373310884}
 --- !u!4 &989421864
 Transform:

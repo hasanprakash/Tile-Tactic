@@ -18,6 +18,7 @@ MonoBehaviour:
   tile: {fileID: 7667689964595130077, guid: c6699d839183e744e8ae9f950fd74d1b, type: 3}
   hero: {fileID: 8432795276923450778, guid: bf54b6e3c7af7604c950259b8af9c93b, type: 3}
   end: {fileID: 2705475138209574267, guid: 682ec02e76755ec46afe655c26bd9c1d, type: 3}
+  blocker: {fileID: 6156529540162787792, guid: 55de9dc491abc1449b4f70400c5781bc, type: 3}
   attachments:
   - {fileID: 4286681278865442294, guid: 03154189df486154ea59329de25cedc6, type: 3}
   - {fileID: 4286681278865442294, guid: bdf882966ed0cd24095b61e783c3398c, type: 3}
@@ -31,13 +32,13 @@ MonoBehaviour:
     cellSize: {x: 32, y: 16}
     cells:
     - row:
-      - 2R*2
-      - 2L*1
+      - 0
+      - 0
       - 0
       - 0
     - row:
-      - 0
-      - 0
+      - 2R*2
+      - 2L*1
       - 0
       - 0
     - row:
@@ -56,7 +57,7 @@ MonoBehaviour:
       - 1
       - 1
     - row:
-      - 1
+      - Blocker
       - RD
       - 1
       - UD

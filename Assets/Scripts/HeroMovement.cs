@@ -20,11 +20,13 @@ public class HeroMovement : MonoBehaviour
     Vector3 previousCoordinate;
     GridManager gridManager;
     private MovementMaster movementMaster;
+    private List<GameObject> collidedAttachments;
 
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
         presentCoordinate = gridManager.GetTileCoordinate(transform.position);
+        collidedAttachments = new List<GameObject>();
     }
     void Start()
     {
@@ -104,11 +106,25 @@ public class HeroMovement : MonoBehaviour
             directionCode = director.GetDirectionCode();
             movingDirection = directionCode;
         }
-        else if (collision.gameObject.tag == "Attachment") { }
+        else if (collision.gameObject.tag == "Attachment") { } // not used
         else if(collision.gameObject.tag == "End")
         {
             movementMaster.GameWin();
         }
+        if(collidedAttachments.Count > 1)
+        {
+            StopMovement();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Attachment")
+            collidedAttachments.Add(collision.gameObject);
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Attachment")
+            collidedAttachments.Remove(collision.gameObject);
     }
 
     public void ReorderHeroPosition()
