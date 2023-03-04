@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 4771083137002921897}
   - component: {fileID: 3487780783121576032}
   - component: {fileID: 679765655569190066}
+  - component: {fileID: 9141347479823370812}
   m_Layer: 6
   m_Name: 3Left
   m_TagString: Attachment
@@ -342,6 +343,7 @@ MonoBehaviour:
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   isDraggable: 1
   countObject: {fileID: 7499789920595547612}
+  audioManager: {fileID: 0}
 --- !u!61 &4771083137002921897
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -366,7 +368,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10, y: 10}
+  m_Size: {x: 9, y: 9}
   m_EdgeRadius: 0
 --- !u!114 &3487780783121576032
 MonoBehaviour:
@@ -402,6 +404,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &9141347479823370812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286681278865442294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a660ceeabadf7f4fbefa406c35fcf54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7499789920595547612
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7499789920595547612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 5.33, z: 0}
   m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 0
   m_Children:

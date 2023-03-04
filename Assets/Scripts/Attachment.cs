@@ -19,6 +19,7 @@ public class Attachment : MonoBehaviour
     Vector3 previousCoordinate;
     Vector3 currentCoordinate;
     Vector3 tilePosition;
+    Vector3 worldPosition;
 
     private Vector3 startPosition;
 
@@ -43,7 +44,7 @@ public class Attachment : MonoBehaviour
         renderer.color = baseColor;
     }
 
-    private void OnMouseDown()
+    public void MouseDown()
     {
         if (!isDraggable) return;
         isDrag = true;
@@ -56,16 +57,16 @@ public class Attachment : MonoBehaviour
             SetOccupiedStatus(currentCoordinate, false);
         }
     }
-    private void OnMouseDrag()
+    public void MouseDrag()
     {
         if (isDrag)
         {
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPosition.z = 0f;
             transform.position = worldPosition;
         }
     }
-    private void OnMouseUp()
+    public void MouseUp()
     {
         if (!isDraggable) return;
 
@@ -249,6 +250,41 @@ public class Attachment : MonoBehaviour
         else if(direction == 'L')
         {
             for(int i=x;i>x-noOfSteps;i--)
+            {
+                attTracker = attTrackerData[i, y];
+                attTracker.occupied = status;
+            }
+        }
+
+    }
+
+    public void SetOccupiedStatus(Vector3 coordinate, bool status, GridManager gridManager)
+    {
+        if (!gridManager.IsCoordinateInsideTileGrid(coordinate))
+        {
+            Debug.Log(coordinate + " is not inside the grid -- SetOccupiedStatus()");
+            return;
+        }
+        Debug.Log(coordinate + " " + status);
+
+        Level level = FindObjectOfType<LevelInfo>().level;
+        int x = (int)coordinate.x, y = (int)coordinate.y;
+
+        int noOfSteps = attachmentId[0] - 48;
+        char direction = attachmentId[1];
+        var attTrackerData = level.attachmentTracker;
+        AttachmentTracker attTracker;
+        if (direction == 'R')
+        {
+            for (int i = x; i < x + noOfSteps; i++)
+            {
+                attTracker = attTrackerData[i, y];
+                attTracker.occupied = status;
+            }
+        }
+        else if (direction == 'L')
+        {
+            for (int i = x; i > x - noOfSteps; i--)
             {
                 attTracker = attTrackerData[i, y];
                 attTracker.occupied = status;

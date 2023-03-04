@@ -80,7 +80,13 @@ public class MovementMaster : MonoBehaviour
     void StartMovements()
     {
         //heroMovement = level.instantiatedHero.GetComponent<HeroMovement>();
-        if (turnNum == 1)
+        if (turnNum == 0)
+        {
+            if (isHeroMovement && heroMovement != null)
+                heroMovement.HeroMove();
+            turnNum = 1;
+        }
+        else if (turnNum == 1)
         {
             foreach (GameObject attachment in attachments)
             {
@@ -91,12 +97,6 @@ public class MovementMaster : MonoBehaviour
                     tileMovement.AttachmentMove();
             }
             turnNum = 0;
-        }
-        else if (turnNum == 0)
-        {
-            if (isHeroMovement && heroMovement != null)
-                heroMovement.HeroMove();
-            turnNum = 1;
         }
     }
 

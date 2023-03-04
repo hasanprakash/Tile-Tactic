@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d8859046cd106d468624d2a6cd608b3, type: 3}
-  m_Name: Level8
+  m_Name: Level12
   m_EditorClassIdentifier: 
-  levelNumber: 8
+  levelNumber: 11
   gridWidth: 4
   gridHeight: 9
   tile: {fileID: 7667689964595130077, guid: c6699d839183e744e8ae9f950fd74d1b, type: 3}
@@ -21,6 +21,8 @@ MonoBehaviour:
   blocker: {fileID: 6156529540162787792, guid: 55de9dc491abc1449b4f70400c5781bc, type: 3}
   attachments:
   - {fileID: 4286681278865442294, guid: 03154189df486154ea59329de25cedc6, type: 3}
+  - {fileID: 4286681278865442294, guid: 43e9ecf4ae9311046a554fe2594cd5b0, type: 3}
+  - {fileID: 4286681278865442294, guid: 39afef99611bfc440afbd711c1f96948, type: 3}
   - {fileID: 4286681278865442294, guid: bdf882966ed0cd24095b61e783c3398c, type: 3}
   directors:
   - {fileID: 2207249623770721664, guid: 9332e3c63b9c3f24b93e821ed99259ff, type: 3}
@@ -40,21 +42,26 @@ MonoBehaviour:
       - 0
     - row:
       - 2R*1
-      - Freezer
+      - 2L*1
       - 0
       - 0
     - row:
+      - 1
+      - 1
+      - 1
       - End
-      - DD
-      - 1
-      - LD
     - row:
       - 1
       - 1
       - 1
       - 1
     - row:
-      - UD
+      - Blocker
+      - Blocker
+      - Blocker
+      - 1
+    - row:
+      - 1
       - 1
       - 1
       - 1
@@ -64,13 +71,8 @@ MonoBehaviour:
       - 1
       - 1
     - row:
-      - RD
       - 1
-      - UD
-      - 1
-    - row:
       - Hero
-      - 1
       - 1
       - 1
     - row:
@@ -79,5 +81,6 @@ MonoBehaviour:
       - 0
       - 0
   instantiatedAttachments:
+  - {fileID: 0}
   - {fileID: 0}
   instantiatedHero: {fileID: 0}

@@ -15,6 +15,7 @@ public class Level : ScriptableObject
     [SerializeField] public GameObject blocker;
     [SerializeField] public List<GameObject> attachments;
     [SerializeField] public List<GameObject> directors;
+    [SerializeField] public List<GameObject> otherTiles;
     [SerializeField] public Array2DString arrangement;
     [HideInInspector] public List<GameObject> instantiatedAttachments;
     [HideInInspector] public GameObject instantiatedHero;

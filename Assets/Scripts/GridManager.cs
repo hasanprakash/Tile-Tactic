@@ -12,25 +12,35 @@ public class GridManager : MonoBehaviour
     private Tile tile;
     private List<GameObject> attachments;
     private List<GameObject> directors;
+    private List<GameObject> otherTiles;
     private Dictionary<string, GameObject> attachmentsDict;
     private Dictionary<string, GameObject> directorsDict;
+    private Dictionary<string, Tile> otherTilesDict;
     Array2DString arrangement;
     private int width;
     private int height;
-    AttachmentTracker attTracker;
+    private AttachmentTracker attTracker;
+    private Stack<Tuple<Attachment, Vector3>> attachmentsInstantiatedInsideGrid;
+
+    // Less Imp
+    private Tile myTile;
+    private GameObject myGameObject;
 
     [HideInInspector]
     public Dictionary<Vector3, Transform> d; // coordinate position, tile transform
-    void Start()
+    void Awake()
     {
         levelInfo = FindObjectOfType<LevelInfo>();
         level = levelInfo.level;
         width = level.gridWidth; height = level.gridHeight;
         attachmentsDict= new Dictionary<string, GameObject>();
         directorsDict= new Dictionary<string, GameObject>();
+        otherTilesDict= new Dictionary<string, Tile>();
         tile = level.tile;
         attachments = level.attachments;
         directors = level.directors;
+        otherTiles = level.otherTiles;
+        attachmentsInstantiatedInsideGrid = new Stack<Tuple<Attachment, Vector3>>();
         d = new Dictionary<Vector3, Transform>();
         arrangement = level.GetArrangement();
         foreach(GameObject attObj in attachments)
@@ -41,6 +51,11 @@ public class GridManager : MonoBehaviour
         foreach(GameObject dirObj in directors)
         {
             directorsDict.Add(dirObj.GetComponent<Director>().GetDirectorId(), dirObj);
+        }
+        foreach(GameObject otherTileObj in otherTiles)
+        {
+            myTile = otherTileObj.GetComponent<Tile>();
+            otherTilesDict.Add(myTile.GetTileId(), myTile);
         }
         attachments = new List<GameObject>();
         /*for(int i=arrangement.GridSize.y-1;i>=0;i--)
@@ -83,6 +98,12 @@ public class GridManager : MonoBehaviour
                     attTracker.currentPosition = new Vector3(xValue, yValue);
 
                     int wid = level.attachmentTracker.GetLength(0), hei = level.attachmentTracker.GetLength(1);
+
+                    if (yValue != hei - 2)
+                    {
+                        attachmentsInstantiatedInsideGrid.Push(Tuple.Create(attObj.GetComponent<Attachment>(), new Vector3(xValue, yValue)));
+                    }
+
                     if (xValue >= 0 && yValue >= 0 && xValue < wid && yValue < hei)
                     {
                         level.attachmentTracker[xValue, yValue] = attTracker;
@@ -106,7 +127,6 @@ public class GridManager : MonoBehaviour
                 {
                     TileInstantiate(level.end.GetComponent<Tile>(), xValue, yValue);
 
-                    attTracker = new AttachmentTracker();
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
@@ -115,7 +135,6 @@ public class GridManager : MonoBehaviour
                     GameObject instantiatedHero = TileInstantiate(level.hero.GetComponent<Tile>() , xValue, yValue);
                     level.instantiatedHero = instantiatedHero;
 
-                    attTracker = new AttachmentTracker();
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
@@ -123,7 +142,6 @@ public class GridManager : MonoBehaviour
                 {
                     TileInstantiate(level.blocker.GetComponent<Tile>(), xValue, yValue);
 
-                    attTracker = new AttachmentTracker();
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
@@ -137,6 +155,23 @@ public class GridManager : MonoBehaviour
 
                     attTracker = new AttachmentTracker();
                     attTracker.occupied = true;
+                    level.attachmentTracker[xValue, yValue] = attTracker;
+                }
+                else if(value == "Freezer")
+                {
+                    myGameObject = TileInstantiate(otherTilesDict[value], xValue, yValue);
+
+                    attTracker = new AttachmentTracker();
+                    if (IsCoordinateInsideTileGrid(new Vector3(xValue, yValue)))
+                    {
+                        attTracker.occupied = true;
+                        myGameObject.GetComponent<Draggable>().isDraggable = false;
+                    }
+                    else
+                    {
+                        attTracker.occupied = false;
+                        myGameObject.GetComponent<Draggable>().isDraggable = true;
+                    }
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
             }
@@ -222,6 +257,13 @@ public class GridManager : MonoBehaviour
         x = (width % 2 == 1) ? pos.x - (width / 2) : (pos.x - (width / 2) + 0.5f);
         y = (height % 2 == 1) ? pos.y - (height / 2) : (pos.y - (height / 2) + 0.5f);
     }
+    public Vector3 ConvertTileCoordinateToWorldPosition(Vector3 coordinate)
+    {
+        float x, y;
+        x = (width % 2 == 1) ? coordinate.x - (width / 2) : (coordinate.x - (width / 2) + 0.5f);
+        y = (height % 2 == 1) ? coordinate.y - (height / 2) : (coordinate.y - (height / 2) + 0.5f);
+        return new Vector3(x, y);
+    }
 
     void PostGridCreate() // executes after grid creates
     {
@@ -229,6 +271,14 @@ public class GridManager : MonoBehaviour
         foreach(GameObject go in attachments)
         {
             go.GetComponent<Attachment>().RefreshAttachmentCount();
+        }
+        Tuple<Attachment, Vector3> tuple;
+        while (attachmentsInstantiatedInsideGrid.Count > 0)
+        {
+            tuple = attachmentsInstantiatedInsideGrid.Peek();
+            tuple.Item1.isDraggable = false;
+            tuple.Item1.SetOccupiedStatus(tuple.Item2, true, this);
+            attachmentsInstantiatedInsideGrid.Pop();
         }
     }
 

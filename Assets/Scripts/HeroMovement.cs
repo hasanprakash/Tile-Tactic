@@ -9,13 +9,20 @@ public class HeroMovement : MonoBehaviour
     private Vector3 adjustPosition;
     private float timeToMove = 0.5f;
     private float adjustTimeToMove = 0.1f;
+    private int freezeCount = 0;
     float distance = 1f;
     float speed;
     float adjustSpeed;
+    float adjustStep;
     float speedControl = 2f;
     float timeVar = 0.5f;
+
+    private bool isFirstAdjusting;
     private bool isMoving;
-    private bool isPositionAdjusting;
+    private bool isLastAdjusting;
+
+    private bool isGameOver = false;
+
     Vector3 presentCoordinate;
     Vector3 previousCoordinate;
     GridManager gridManager;
@@ -32,8 +39,9 @@ public class HeroMovement : MonoBehaviour
     {
         speed = distance / timeToMove;
         adjustSpeed = distance / adjustTimeToMove;
+        isFirstAdjusting = false;
         isMoving = false;
-        isPositionAdjusting = false;
+        isLastAdjusting = false;
         movementMaster = FindObjectOfType<MovementMaster>();
         previousCoordinate = Vector3.zero;
 
@@ -42,10 +50,19 @@ public class HeroMovement : MonoBehaviour
 
     public void HeroMove()
     {
+        if (isGameOver)
+        {
+            movementMaster.GameWin();
+            return;
+        }
+
+        bool freezeStatus = CheckFreezerStatus();
+        if (!freezeStatus) return;
         speedControl = 2f;
-        CheckGameOverStatus();
-        UpdateHeroNextPosition();
-        isMoving = true;
+        /*CheckGameOverStatus();*/
+        /*UpdateHeroNextPosition();*/  // changed to update the position after first adjustment
+        ReorderHeroPosition();
+        isFirstAdjusting = true;
     }
     void UpdateHeroNextPosition()
     {
@@ -59,19 +76,23 @@ public class HeroMovement : MonoBehaviour
             nextPosition = transform.position + (transform.up * -1);
     }
 
-    public void StartHeroRoutine()
-    {
-        StopHeroRoutine();
-        InvokeRepeating("HeroMove", timeToMove, timeToMove + 0.2f);
-    }
-    public void StopHeroRoutine()
-    {
-        isMoving = false;
-        CancelInvoke();
-    }
-
     private void Update()
     {
+
+        // FIRST ADJUSTMENT
+        if (isFirstAdjusting)
+        {
+            previousCoordinate = gridManager.GetTileCoordinate(transform.position);
+            adjustStep = adjustSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, adjustPosition, adjustStep);
+            if (Equals(transform.position, adjustPosition))
+            {
+                isFirstAdjusting = false;
+                UpdateHeroNextPosition();
+                isMoving = true;
+            }
+        }
+
         // MOVING
         if (isMoving)
         {
@@ -83,18 +104,22 @@ public class HeroMovement : MonoBehaviour
             if (timeVar < 0f || Equals(transform.position, nextPosition))
             {
                 ReorderHeroPosition();
-                isMoving = false;
                 timeVar = 0.5f;
+                isMoving = false;
+                isLastAdjusting = true;
             }
         }
 
 
-        // ADJUSTING
-        if (!isPositionAdjusting) return;
-        float adjustStep = adjustSpeed * Time.deltaTime;
+        // LAST ADJUSTMENT
+        if (!isLastAdjusting) return;
+        adjustStep = adjustSpeed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, adjustPosition, adjustStep);
         if (Equals(transform.position, adjustPosition))
-            isPositionAdjusting = false;
+        {
+            isLastAdjusting = false;
+            CheckGameOverStatus();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -106,24 +131,27 @@ public class HeroMovement : MonoBehaviour
             directionCode = director.GetDirectionCode();
             movingDirection = directionCode;
         }
-        else if (collision.gameObject.tag == "Attachment") { } // not used
         else if(collision.gameObject.tag == "End")
         {
-            movementMaster.GameWin();
+            isGameOver = true;
         }
-        if(collidedAttachments.Count > 1)
+        else if(collision.gameObject.tag == "Freezer")
         {
-            StopMovement();
+            freezeCount++;
+            Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.tag == "Attachment") { } // not used
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Attachment")
+        if (collision.gameObject.tag == "Attachment" || collision.gameObject.tag == "Blocker")
             collidedAttachments.Add(collision.gameObject);
+        if (collidedAttachments.Count > 1)
+            StopMovement();
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Attachment")
+        if (collision.gameObject.tag == "Attachment" || collision.gameObject.tag == "Blocker")
             collidedAttachments.Remove(collision.gameObject);
     }
 
@@ -131,7 +159,6 @@ public class HeroMovement : MonoBehaviour
     {
         Vector3 newPosition = gridManager.ReorderedPosition(transform.position);
         adjustPosition = newPosition;
-        isPositionAdjusting = true;
     }
 
     void CheckGameOverStatus()
@@ -146,7 +173,16 @@ public class HeroMovement : MonoBehaviour
         {
             StopMovement();
         }
-        previousCoordinate = presentCoordinate;
+    }
+
+    public bool CheckFreezerStatus()
+    {
+        if(freezeCount > 0)
+        {
+            freezeCount--;
+            return false;
+        }
+        return true;
     }
 
     public void StopMovement()

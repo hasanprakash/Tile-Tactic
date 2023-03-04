@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     }
     public void ToInstuction()
     {
+        if (audioManager == null) audioManager = AudioManager.instance;
+        audioManager.Play("ButtonClick");
         SceneManager.LoadScene("InstructionScene");
     }
     public void AppExit()
@@ -59,6 +61,8 @@ public class GameManager : MonoBehaviour
     // MAIN GAME SCENE
     public void PlayAgain()
     {
+        if (audioManager == null) audioManager = AudioManager.instance;
+        audioManager.Play("ButtonClick");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ExitToLevelScene()
