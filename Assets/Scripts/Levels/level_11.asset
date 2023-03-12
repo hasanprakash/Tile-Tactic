@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d8859046cd106d468624d2a6cd608b3, type: 3}
-  m_Name: Level11
+  m_Name: level_11
   m_EditorClassIdentifier: 
   levelNumber: 11
   gridWidth: 4
@@ -41,17 +41,12 @@ MonoBehaviour:
       - 0
       - 0
     - row:
-      - 2R*1
+      - Freezer
       - 0
       - 0
       - 0
     - row:
-      - 1
-      - 1
-      - 1
       - End
-    - row:
-      - 3R*1
       - 1
       - 1
       - 1
@@ -59,21 +54,26 @@ MonoBehaviour:
       - 1
       - 1
       - 3L*1
-      - 1
-    - row:
-      - 1
-      - 3R*1
-      - 1
-      - 1
+      - LD
     - row:
       - 1
       - 1
+      - 2R*1
       - 1
-      - 3L*1
+    - row:
+      - 2R*1
+      - 1
+      - 1
+      - 1
     - row:
       - 1
+      - 1
+      - 1
+      - 1
+    - row:
       - 1
       - Hero
+      - 1
       - 1
     - row:
       - 0
@@ -81,8 +81,6 @@ MonoBehaviour:
       - 0
       - 0
   instantiatedAttachments:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

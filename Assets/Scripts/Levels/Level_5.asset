@@ -10,27 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d8859046cd106d468624d2a6cd608b3, type: 3}
-  m_Name: Level12
+  m_Name: Level_5
   m_EditorClassIdentifier: 
-  levelNumber: 11
+  levelNumber: 5
   gridWidth: 4
   gridHeight: 9
   tile: {fileID: 7667689964595130077, guid: c6699d839183e744e8ae9f950fd74d1b, type: 3}
   hero: {fileID: 8432795276923450778, guid: bf54b6e3c7af7604c950259b8af9c93b, type: 3}
   end: {fileID: 2705475138209574267, guid: 682ec02e76755ec46afe655c26bd9c1d, type: 3}
-  blocker: {fileID: 6156529540162787792, guid: 55de9dc491abc1449b4f70400c5781bc, type: 3}
+  blocker: {fileID: 0}
   attachments:
   - {fileID: 4286681278865442294, guid: 03154189df486154ea59329de25cedc6, type: 3}
-  - {fileID: 4286681278865442294, guid: 43e9ecf4ae9311046a554fe2594cd5b0, type: 3}
-  - {fileID: 4286681278865442294, guid: 39afef99611bfc440afbd711c1f96948, type: 3}
-  - {fileID: 4286681278865442294, guid: bdf882966ed0cd24095b61e783c3398c, type: 3}
   directors:
   - {fileID: 2207249623770721664, guid: 9332e3c63b9c3f24b93e821ed99259ff, type: 3}
   - {fileID: 8120445325778721520, guid: 1c8061975dbef8348b798eaf9650f314, type: 3}
   - {fileID: 7979412124952571483, guid: fdd6170adbaa8df42939910d69610d08, type: 3}
   - {fileID: 8194690427860822124, guid: b1d809cafa4c667408b04b92687471b9, type: 3}
-  otherTiles:
-  - {fileID: 4277638713127573221, guid: 2214626be888d2646b02880a0ddd6966, type: 3}
+  otherTiles: []
   arrangement:
     gridSize: {x: 4, y: 9}
     cellSize: {x: 32, y: 16}
@@ -41,24 +37,14 @@ MonoBehaviour:
       - 0
       - 0
     - row:
-      - 2R*1
       - 2L*1
       - 0
       - 0
+      - 0
     - row:
-      - 1
-      - 1
-      - 1
       - End
-    - row:
       - 1
       - 1
-      - 1
-      - 1
-    - row:
-      - Blocker
-      - Blocker
-      - Blocker
       - 1
     - row:
       - 1
@@ -71,9 +57,19 @@ MonoBehaviour:
       - 1
       - 1
     - row:
+      - 1
+      - 1
+      - 1
+      - 1
+    - row:
+      - 1
+      - UD
+      - LD
+      - 1
+    - row:
+      - 1
       - 1
       - Hero
-      - 1
       - 1
     - row:
       - 0
@@ -81,6 +77,5 @@ MonoBehaviour:
       - 0
       - 0
   instantiatedAttachments:
-  - {fileID: 0}
   - {fileID: 0}
   instantiatedHero: {fileID: 0}

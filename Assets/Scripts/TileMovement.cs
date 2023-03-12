@@ -10,6 +10,7 @@ public class TileMovement : MonoBehaviour
     float timeToMove = 0.5f;
     float distance = 1f;
     float speed;
+    float tileStep;
 
     private int noOfTilesToMove = 0; // comes from attachment ID
     private char directionToMove = '\0'; // comes from attachment ID
@@ -77,8 +78,8 @@ public class TileMovement : MonoBehaviour
     private void Update()
     {
         if (!isMoving) return;
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
+        tileStep = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, nextPosition, tileStep);
         if(transform.position == nextPosition)
             isMoving = false;
     }

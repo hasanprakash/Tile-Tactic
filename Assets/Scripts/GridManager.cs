@@ -25,6 +25,7 @@ public class GridManager : MonoBehaviour
     // Less Imp
     private Tile myTile;
     private GameObject myGameObject;
+    private string cellValue;
 
     [HideInInspector]
     public Dictionary<Vector3, Transform> d; // coordinate position, tile transform
@@ -77,15 +78,20 @@ public class GridManager : MonoBehaviour
             for(int j=0;j<width;j++)
             {
                 xValue = j; yValue = height - i - 1;
-                string value = arrangement.GetCell(j, i);
-                if(value.Contains('*'))
+                cellValue = arrangement.GetCell(j, i);
+                if(cellValue.Contains('*'))
                 {
                     attTracker = new AttachmentTracker();
 
-                    string[] mul = value.Split('*');
+                    string[] mul = cellValue.Split('*');
                     int total = Convert.ToInt32(mul[1]);
+                    int wid = level.attachmentTracker.GetLength(0), hei = level.attachmentTracker.GetLength(1);
                     GameObject attObj = null;
                     Attachment att = attachmentsDict[mul[0]].GetComponent<Attachment>();
+                    if (yValue != hei - 2)
+                    {
+                        TileInstantiate(tile, xValue, yValue);
+                    }
                     for (int k = 0; k < total; k++)
                     {
                         attObj = AttachmentInstantiate(attachmentsDict[mul[0]], xValue, yValue);
@@ -96,8 +102,6 @@ public class GridManager : MonoBehaviour
                     attTracker.attachmentId = att.GetAttachmentId();
                     attTracker.attachmentsCount = total;
                     attTracker.currentPosition = new Vector3(xValue, yValue);
-
-                    int wid = level.attachmentTracker.GetLength(0), hei = level.attachmentTracker.GetLength(1);
 
                     if (yValue != hei - 2)
                     {
@@ -113,53 +117,55 @@ public class GridManager : MonoBehaviour
 
                     continue;
                 }
-                if (value == null) return;
+                if (cellValue == null) return;
 
                 attTracker = new AttachmentTracker();
                 attTracker.attachmentsCount = 0;
                 level.attachmentTracker[xValue, yValue] = attTracker;
 
-                if (value == "1")
+                if (cellValue == "1")
                 {
                     TileInstantiate(tile, xValue, yValue);
                 }
-                else if(value == "End")
+                else if(cellValue == "End")
                 {
                     TileInstantiate(level.end.GetComponent<Tile>(), xValue, yValue);
 
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
-                else if(value == "Hero")
+                else if(cellValue == "Hero")
                 {
+                    TileInstantiate(tile, xValue, yValue);
+
                     GameObject instantiatedHero = TileInstantiate(level.hero.GetComponent<Tile>() , xValue, yValue);
                     level.instantiatedHero = instantiatedHero;
 
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
-                else if(value == "Blocker")
+                else if(cellValue == "Blocker")
                 {
                     TileInstantiate(level.blocker.GetComponent<Tile>(), xValue, yValue);
 
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
-                else if(value == "2R" || value == "3R" || value == "2L" || value == "3L")
+                else if(cellValue == "2R" || cellValue == "3R" || cellValue == "2L" || cellValue == "3L")
                 {
-                    AttachmentInstantiate(attachmentsDict[value], xValue, yValue);
+                    AttachmentInstantiate(attachmentsDict[cellValue], xValue, yValue);
                 }
-                else if(value == "LD" || value == "RD" || value == "UD" || value == "DD")
+                else if(cellValue == "LD" || cellValue == "RD" || cellValue == "UD" || cellValue == "DD")
                 {
-                    DirectorInstantiate(directorsDict[value], xValue, yValue);
+                    DirectorInstantiate(directorsDict[cellValue], xValue, yValue);
 
                     attTracker = new AttachmentTracker();
                     attTracker.occupied = true;
                     level.attachmentTracker[xValue, yValue] = attTracker;
                 }
-                else if(value == "Freezer")
+                else if(cellValue == "Freezer")
                 {
-                    myGameObject = TileInstantiate(otherTilesDict[value], xValue, yValue);
+                    myGameObject = TileInstantiate(otherTilesDict[cellValue], xValue, yValue);
 
                     attTracker = new AttachmentTracker();
                     if (IsCoordinateInsideTileGrid(new Vector3(xValue, yValue)))

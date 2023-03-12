@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.13993701, b: 0.30429283, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -590,16 +590,23 @@ MonoBehaviour:
   levels:
   - {fileID: 11400000, guid: 0e8729d8bb1a7c54c8fc85c706cf5e35, type: 2}
   - {fileID: 11400000, guid: 7927b1aae9b880e4e93e8bb41b7134ee, type: 2}
+  - {fileID: 11400000, guid: 9db6acdbcfeb34d4493493efe27c91f8, type: 2}
+  - {fileID: 11400000, guid: 51e450d38a182f147bd011e2304f52d6, type: 2}
   - {fileID: 11400000, guid: 23575adf37a079e4e8cfab351b9c5877, type: 2}
-  - {fileID: 11400000, guid: 676fb14812b36ae4bb24a9d57c139d3d, type: 2}
   - {fileID: 11400000, guid: 26ff4809cb1e5ea46806bbe30d39a252, type: 2}
-  - {fileID: 11400000, guid: 25844f7373c33524a9b116c9c7092ec1, type: 2}
+  - {fileID: 11400000, guid: 676fb14812b36ae4bb24a9d57c139d3d, type: 2}
+  - {fileID: 11400000, guid: d3749c643c723c34e8f20df552a53529, type: 2}
   - {fileID: 11400000, guid: 32a5caf44a217c24fb5920422fe98207, type: 2}
+  - {fileID: 11400000, guid: f22bcb0786469fb4ba34c1883c392b22, type: 2}
+  - {fileID: 11400000, guid: 7311519281ea1b346b84d66089a01f2f, type: 2}
+  - {fileID: 11400000, guid: 114cfeecc8cad9045a5522ba3f88ac37, type: 2}
+  - {fileID: 11400000, guid: 25844f7373c33524a9b116c9c7092ec1, type: 2}
+  - {fileID: 11400000, guid: 59c96259be0a5364b80efccfc7088af2, type: 2}
+  - {fileID: 11400000, guid: 7298940162573c44ca242dea30c1eb3a, type: 2}
+  - {fileID: 11400000, guid: 781fa2bf9bdd0154f8c9755ef219191f, type: 2}
+  - {fileID: 11400000, guid: 2ec22b1ceead6594c9dae93bfb3c98e3, type: 2}
   - {fileID: 11400000, guid: e74e983305ac6c74faa9c9dfa1e8605c, type: 2}
   - {fileID: 11400000, guid: 4e29dfa8193c680439e9693ed22d5056, type: 2}
-  - {fileID: 11400000, guid: 7298940162573c44ca242dea30c1eb3a, type: 2}
-  - {fileID: 11400000, guid: d3749c643c723c34e8f20df552a53529, type: 2}
-  - {fileID: 11400000, guid: 114cfeecc8cad9045a5522ba3f88ac37, type: 2}
   - {fileID: 11400000, guid: e3e19d69ca67f6848b14ca8016c516ca, type: 2}
   gameManager: {fileID: 1373310884}
 --- !u!4 &989421864

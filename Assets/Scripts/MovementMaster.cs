@@ -116,10 +116,4 @@ public class MovementMaster : MonoBehaviour
         if(tileMovement) tileMovement.StopMovement();
         CancelInvoke();
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T)) StartGameRoutine(true, false); // hero and tile
-        if (Input.GetKeyDown(KeyCode.Y)) StopGameRoutine(gameObject);
-    }
 }

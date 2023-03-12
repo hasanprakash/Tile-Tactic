@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d8859046cd106d468624d2a6cd608b3, type: 3}
-  m_Name: Level6
+  m_Name: Level_9
   m_EditorClassIdentifier: 
-  levelNumber: 6
+  levelNumber: 9
   gridWidth: 4
   gridHeight: 9
   tile: {fileID: 7667689964595130077, guid: c6699d839183e744e8ae9f950fd74d1b, type: 3}
@@ -27,6 +27,8 @@ MonoBehaviour:
   - {fileID: 8120445325778721520, guid: 1c8061975dbef8348b798eaf9650f314, type: 3}
   - {fileID: 7979412124952571483, guid: fdd6170adbaa8df42939910d69610d08, type: 3}
   - {fileID: 8194690427860822124, guid: b1d809cafa4c667408b04b92687471b9, type: 3}
+  otherTiles:
+  - {fileID: 4277638713127573221, guid: 2214626be888d2646b02880a0ddd6966, type: 3}
   arrangement:
     gridSize: {x: 4, y: 9}
     cellSize: {x: 32, y: 16}
@@ -37,15 +39,15 @@ MonoBehaviour:
       - 0
       - 0
     - row:
-      - 2R*2
-      - 2L*1
+      - Freezer
+      - 0
       - 0
       - 0
     - row:
+      - 1
+      - 1
       - End
       - 1
-      - 1
-      - 1
     - row:
       - 1
       - 1
@@ -57,10 +59,10 @@ MonoBehaviour:
       - 1
       - 1
     - row:
-      - Blocker
-      - RD
+      - 2R*1
       - 1
-      - UD
+      - 1
+      - 1
     - row:
       - 1
       - 1
@@ -77,7 +79,5 @@ MonoBehaviour:
       - 0
       - 0
   instantiatedAttachments:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   instantiatedHero: {fileID: 0}

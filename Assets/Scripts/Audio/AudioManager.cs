@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -37,6 +36,7 @@ public class AudioManager : MonoBehaviour
     {
         foreach (Sound s in instance.sounds)
         {
+            Debug.Log("Adding Audio Source");
             s.source = instance.gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;

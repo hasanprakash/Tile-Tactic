@@ -16,6 +16,7 @@ public class HeroMovement : MonoBehaviour
     float adjustStep;
     float speedControl = 2f;
     float timeVar = 0.5f;
+    float heroStep;
 
     private bool isFirstAdjusting;
     private bool isMoving;
@@ -28,12 +29,14 @@ public class HeroMovement : MonoBehaviour
     GridManager gridManager;
     private MovementMaster movementMaster;
     private List<GameObject> collidedAttachments;
+    private AudioManager audioManager;
 
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
         presentCoordinate = gridManager.GetTileCoordinate(transform.position);
         collidedAttachments = new List<GameObject>();
+        audioManager = AudioManager.instance;
     }
     void Start()
     {
@@ -96,10 +99,10 @@ public class HeroMovement : MonoBehaviour
         // MOVING
         if (isMoving)
         {
-            float step = speed * Time.deltaTime;
-            step *= speedControl;
+            heroStep = speed * Time.deltaTime;
+            heroStep *= speedControl;
             if (speedControl >= 1f) speedControl -= (0.3f * Time.deltaTime);
-            transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
+            transform.position = Vector3.MoveTowards(transform.position, nextPosition, heroStep);
             timeVar -= Time.deltaTime;
             if (timeVar < 0f || Equals(transform.position, nextPosition))
             {
@@ -118,6 +121,7 @@ public class HeroMovement : MonoBehaviour
         if (Equals(transform.position, adjustPosition))
         {
             isLastAdjusting = false;
+            audioManager.Play("TileAttachment");
             CheckGameOverStatus();
         }
     }

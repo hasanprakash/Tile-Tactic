@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d8859046cd106d468624d2a6cd608b3, type: 3}
-  m_Name: Level13
+  m_Name: Level_3
   m_EditorClassIdentifier: 
-  levelNumber: 11
+  levelNumber: 3
   gridWidth: 4
   gridHeight: 9
   tile: {fileID: 7667689964595130077, guid: c6699d839183e744e8ae9f950fd74d1b, type: 3}
@@ -41,23 +41,23 @@ MonoBehaviour:
       - 0
       - 0
     - row:
-      - 2R*1
-      - 2L*1
+      - 3R*1
+      - 0
       - 0
       - 0
     - row:
-      - 1
       - 1
       - End
       - 1
+      - 1
+    - row:
+      - 1
+      - 1
+      - 1
+      - 1
     - row:
       - 1
       - 1
-      - 1
-      - 1
-    - row:
-      - Blocker
-      - 3R*1
       - 1
       - 1
     - row:
@@ -81,7 +81,5 @@ MonoBehaviour:
       - 0
       - 0
   instantiatedAttachments:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   instantiatedHero: {fileID: 0}

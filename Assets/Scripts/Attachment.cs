@@ -20,6 +20,8 @@ public class Attachment : MonoBehaviour
     Vector3 currentCoordinate;
     Vector3 tilePosition;
     Vector3 worldPosition;
+    Camera mainCamera;
+    bool validationStatus;
 
     private Vector3 startPosition;
 
@@ -37,6 +39,7 @@ public class Attachment : MonoBehaviour
         renderer = GetComponent<SpriteRenderer>();
         currentCoordinate = GetCurrentCoordinate();
         tilePosition = transform.position;
+        mainCamera = Camera.main;
     }
 
     public void Init()
@@ -61,7 +64,7 @@ public class Attachment : MonoBehaviour
     {
         if (isDrag)
         {
-            worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             worldPosition.z = 0f;
             transform.position = worldPosition;
         }
@@ -70,8 +73,8 @@ public class Attachment : MonoBehaviour
     {
         if (!isDraggable) return;
 
-        bool status = ValidateAttachmentDestinationPosition(gridManager.ConvertWorldPositionToTileCoordinate(transform.position));
-        if(!status)
+        validationStatus = ValidateAttachmentDestinationPosition(gridManager.ConvertWorldPositionToTileCoordinate(transform.position));
+        if(!validationStatus)
         {
             movementMaster.StopGameRoutine(gameObject);
             SetOccupiedStatus(currentCoordinate, false);

@@ -6,6 +6,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/tile.challenge";
+    private static string filePath = Application.persistentDataPath;
+    static string str;
     public static void UnlockLevel(int levelNumber)
     {
         if(File.Exists(path))
@@ -86,5 +88,45 @@ public static class SaveSystem
 
         formatter.Serialize(stream, data);
         stream.Close();
+    }
+
+    public static List<int> GetLevelProgress()
+    {
+        List<int> result = new List<int>();
+        List<bool> levelsStatus;
+        int count = 0;
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream;
+        if(File.Exists(path))
+        {
+            stream = new FileStream(path, FileMode.Open);
+            PlayerLevelData data = formatter.Deserialize(stream) as PlayerLevelData;
+            levelsStatus = data.levelsStatus;
+            for(int i=0;i<levelsStatus.Count;i++)
+            {
+                if (levelsStatus[i])
+                {
+                    count++;
+                }
+                if(count == 20)
+                {
+                    result.Add(count);
+                    count = 0;
+                }
+            }
+            if(count != 0)
+                result.Add(count);
+            stream.Close();
+            return result;
+        }
+        else
+        {
+            PlayerLevelData data = new PlayerLevelData();
+            List<bool> li = new List<bool>(new bool[1]);
+            li[0] = true;
+            data.levelsStatus = li;
+            SaveLevelData(data);
+        }
+        return result;
     }
 }
