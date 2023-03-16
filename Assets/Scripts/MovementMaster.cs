@@ -35,6 +35,7 @@ public class MovementMaster : MonoBehaviour
     public void StartGame()
     {
         uiManager.ClosePlayAgainPanel();
+        uiManager.DisableStartButton();
         attachments = level.instantiatedAttachments;
         StopGameRoutine(gameObject);
         isGameStarted = true;

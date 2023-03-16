@@ -2313,6 +2313,7 @@ MonoBehaviour:
   gameWinPanel: {fileID: 657359221}
   levelNumber: {fileID: 60338192}
   winPanelNextButtonText: {fileID: 285710126}
+  startButton: {fileID: 917808956}
 --- !u!1 &1038709920
 GameObject:
   m_ObjectHideFlags: 0

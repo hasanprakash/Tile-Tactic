@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image gameWinPanel;
     [SerializeField] TMP_Text levelNumber;
     [SerializeField] TMP_Text winPanelNextButtonText;
+    [SerializeField] Button startButton;
     LevelInfo levelInfo;
     TMP_Text tmpText;
 
@@ -51,5 +52,10 @@ public class UIManager : MonoBehaviour
     public void CloseGameWinPanel()
     {
         gameWinPanel.gameObject.SetActive(false);
+    }
+
+    public void DisableStartButton()
+    {
+        startButton.enabled = false;
     }
 }

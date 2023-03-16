@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         audioManager = AudioManager.instance;
+        Input.multiTouchEnabled = false;
+        Application.targetFrameRate = 90;
     }
 
     // MENU SCENE
